@@ -1,0 +1,19 @@
+$(document).ready(function(){
+    $.ajax({
+        url:"../request/count.php",
+        type:"GET",
+        success:function(res){
+            $('#count').text(res);
+        }
+    });
+    setInterval(function(){
+        $.ajax({
+            url:"../request/count.php",
+            type:"GET",
+            success:function(res){
+                $('#count').text(res);
+            }
+        });
+    },5000)
+    
+});
