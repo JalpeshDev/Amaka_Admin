@@ -182,8 +182,42 @@ $(document).ready(function(){
       })
     }
 function promotionSoftDeleteFun(id,req){
-  console.log(id,req);
+  var isDel = req == false ? true : false;
+  var IsPermanentDelete = false;
+  $.ajax({
+    url:"../promotion/delete.php",
+    type:"POST",
+    data:{id:id,softDelete:isDel,IsPermanentDelete:IsPermanentDelete},
+    success:function(res){
+      var json = $.parseJSON(res);
+      if(json.status == 200){
+        $('#exampleModal').modal('hide');
+        $('#addMsg').text(json.message);
+        $('#addSection').show();
+        setTimeout(function(){
+          location.reload();
+        },1000)
+      }
+    }
+  });
 }
 function promotionDeleteFun(id,req){
-  console.log(id,req);
+  var isDel = req == false ? true : false;
+  var softDelete = false;
+  $.ajax({
+    url:"../promotion/delete.php",
+    type:"POST",
+    data:{id:id,IsPermanentDelete:isDel,softDelete:softDelete},
+    success:function(res){
+      var json = $.parseJSON(res);
+      if(json.status == 200){
+        $('#exampleModal').modal('hide');
+        $('#addMsg').text(json.message);
+        $('#addSection').show();
+        setTimeout(function(){
+          location.reload();
+        },1000)
+      }
+    }
+  });
 }
